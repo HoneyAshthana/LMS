@@ -2,13 +2,18 @@ from django import forms
 from leave.models import Department,Employee,Application
 from datetime import datetime
 from django.forms.widgets import SelectDateWidget
-from django.forms import Textarea,ModelForm,DateInput,save_instance
+from django.forms import Textarea,ModelForm,DateInput
 """Application form"""
 class ApplicationForm(ModelForm):
+    def __init__(self,dept,*args,**kwargs):
+        super(ApplicationForm,self).__init__(*args,**kwargs)
+        self.fields['reason'].label="Purpose"
+        self.fields['employee'].queryset=Employee.objects.filter(dept=dept,is_active=True)
+
     class Meta:
         model=Application
         fields=['employee','leave_type','date_from','date_to','reason']
-        widgets={'reason',Textarea(attrs={'cols':10,'rows':5})}
+        widgets={'reason':Textarea(attrs={'cols':10,'rows':5})}
     
     def is_valid(self):
         valid = super(ApplicationForm,self).is_valid()
@@ -32,6 +37,14 @@ class ApplicationForm(ModelForm):
 
 """Credit application form"""
 class CreditApplicationForm(ModelForm):
+
+    def __init__(self,*args,**kwargs):
+        super(CreditApplicationForm,self).__init__(self,*args,**kwargs)
+        self.fields['days'].label="Number of days"
+        self.fields['reason'].label="Purpose"
+        self.fields['employee'].queryset=Employee.objects.filter(dept=dept,is_active=True)
+        self.fields['is_credit'].initial=True
+
     class Meta:
         model=Application
         fields=['employee','leave_type','is_credit','days','reason']
@@ -89,7 +102,7 @@ class EmployeeEditForm(ModelForm):
 class EmployeeNewForm(ModelForm):
     def __init__(self,*args,**kwargs):
         super(EmployeeNewForm,self).__init__(*args,**kwargs)
-
+    """
     def save(self,commit=True):
         if self.instance.pk is None:
             fail_message='created'
@@ -97,7 +110,7 @@ class EmployeeNewForm(ModelForm):
             fail_message='changed'
 
         return save_instance(self,self.instance,fail_message,commit,construct=False,)
-
+    """
     class Meta:
         model=Employee
         fields=['qci_id','name','dept','email']

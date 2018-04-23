@@ -1,11 +1,13 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse,Http404
 from django.contrib.auth import authenticate,login,logout
+from django.contrib.auth.decorators import login_required,user_passes_test
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 from datetime import datetime
 from leave.models import Employee,UserProfile,Application,ApplicationLog,TransactionLog,Action,EmployeeUpdateLog
 from django import forms
-from leave.forms import ApplicationForm,CreditApplicationForm,CancelForm,SelectEmployeeForm,EmployeeEditForm,EmployeeNewForm
+from leave.forms import ApplicationForm,CreditApplicationForm,SelectEmployeeForm,EmployeeEditForm,EmployeeNewForm
+#from leave.forms import CancelForm
 from django.contrib import messages
 import json
 from django.core.exceptions import PermissionDenied,ObjectDoesNotExist

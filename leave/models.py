@@ -158,14 +158,11 @@ class TransactionLog(models.Model):
                 action_type = 1
             else:
                 action_type = -1
-        else:
-            pass
-            """
-            #delete application
+        else:        
             if application.is_new:
                 action_type = -1
             else:
-                action_type = 1"""
+                action_type = 1
         if application.is_credit:
             days = application.days
         else:
