@@ -66,11 +66,10 @@ class CreditApplicationForm(ModelForm):
         return True
 
 """"Cancelation Form"""
-"""
 class CancelForm(ModelForm):
     def __init__(self,*args):
         super(CancelForm,self).__init__(*args)
-        reason=forms.CharField(widget=forms.Textarea)"""
+        reason=forms.CharField(widget=forms.Textarea)
 
 """Form when admin want to view particular employee form"""
 class SelectEmployeeForm(forms.Form):
@@ -80,7 +79,7 @@ class SelectEmployeeForm(forms.Form):
         super(SelectEmployeeForm,self).__init__(*args,**kwargs)
 
         employees=Employee.objects.all()
-        if user_type!=5:
+        if user_type!=3:
             self.fields['employee'].queryset=Employee.objects.filter(is_active=True)
         if dept:
             self.fields['employee'].queryset=Employee.objects.filter(dept=dept,is_active=True)

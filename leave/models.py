@@ -19,7 +19,7 @@ LEAVE_TYPES = (
 STATUS=(
     (0,'Deleted'),
     (1,'Pending'),
-    (2,'Processing')
+    (2,'Processing'),
     (3,'Approved'),
     (4,'Rejected'),
     (5,'Cancelled'),
@@ -243,7 +243,7 @@ class Application(models.Model):
         else:
             text="Cancel Approved Leave"
         return text
-"""
+
     def cancel(self,reason):
         cancel_application=Application(original=self,is_new=False,employee=self.employee,leave_type=
         self.leave_type,date_from=self.date_from,date_to=self.date_to,new_date_from=self.new_date_from,
@@ -251,5 +251,5 @@ class Application(models.Model):
         cancel_application.save()
         self.original=cancel_application
         self.save()
-        return cancel_application"""
+        return cancel_application
     
