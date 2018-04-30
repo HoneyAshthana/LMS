@@ -1,8 +1,29 @@
 from django.urls import path
-from leave.views import index_view
-
+from leave import views
 urlpatterns=[
-    path('',index_view,name='index'),
-    
-    
-]
+    path('',views.index,name='index'),
+    path(r'^dept/$',views.dept,name='dept'),
+    path(r'^new/([a-zA-Z]+)?/$',views.new_application,name='new_application'),
+    path(r'^history/([a-zA-Z]+)?/?([0-9]{4})?-?([0-9]{2})?-?([0-9]{2})?',views.sent,name='sent'),
+    path(r'^applications/([a-zA-Z]+)?/?([0-9]{4})?-?([0-9]{2})?-?([0-9]{2})?',views.applications,name='applications'),
+    path(r'^logout/',views.logout,name='logout'),
+    path(r'^application/(\d+)/print$',views.print_application,name='print_application'),
+    path(r'^action/(\d+)/print$',views.print_action,name='print_action') ,
+    #path(r'^application/(\d+)/cancel$',views.cancel,name='cancel')   ,
+    path(r'^actions/([a-zA-Z]+)?$',views.actions,name='actions'),
+    path(r'^action/(\d+)/$',views.action,name='action'),
+    path(r'^/manage_action/$',views.manage_action,name='manage_action'),
+    path(r'^action_history/([a-zA-Z]+)?$',views.action_history,name='action_history'),
+    #path(r'^employee/(\d+)/$',views.employee,name='employee'),
+    path(r'^employees/$',views.employees,name='employees'),
+    path(r'^select_employee/$',views.select_employee,name='select_employee'),
+    path(r'^employee/new$',views.new_employee,name='new_employee'),
+    path(r'^employee/(\d+)/edit$',views.edit_employee,name='edit_employee'),
+    path(r'^application/(\d+)/$',views.detail,name='details'),
+    path(r'^manage_leave/$',views.manage_leave,name='manage_leave'),
+    path(r'^delete_application/$',views.delete_application,name='delete_application'),
+    path(r'^delete_action/$',views.delete_action,name='delete_action'),
+    path(r'^start_processing/$',views.start_processing,name='start_processing'),
+    path(r'^complete/$',views.complete,name='complete'),
+    path(r'^user_guide/$',views.user_guide,name='user_guide'),
+]    
