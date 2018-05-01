@@ -336,7 +336,7 @@ def manage_leave(request):
     else:
         raise PermissionDenied
 
- """Print Application functionality added"""       
+"""Print Application functionality added"""       
 @login_required
 def print_application(request,id):
     try:
