@@ -335,12 +335,28 @@ def manage_leave(request):
             return redirect(reverse('employees'))
     else:
         raise PermissionDenied
-        
+
+ """Print Application functionality added"""       
 @login_required
-@user_passes_test(isAdmin)
 def print_application(request,id):
-    userprofile=UserProfile.objects.get(user=request.user)
+    try:
+        application=Application.objects.get(pk=id)
+    except Application.DoesNotExist:
+        raise Http404
+    employee=pplication.employee
+
+    log=TransactionLog.objects.filter.order_by("-time")
+    if application.is_credit :
+        days_count=application.days
+    else:
+        days_count=(application.date_to-application.date_from).days+1
     
+    context={
+        'application':application,
+        'days_count':days_count,
+        'log':log,
+    }
+    return render(requets,'leave/print.html',context)
 
 
 @login_required
@@ -572,6 +588,7 @@ def sent(request,sort,year,month,date):
         'user_type':userprofile.user_type,
     }
     return render(request,'leave/sent.html',context)
+
 
 @login_required
 @user_passes_test(isDept)
